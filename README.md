@@ -30,7 +30,74 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
 ## PROGRAM
+```
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main()
+{
+char text[500], key[100];
+int i, j = 0;
+int textLen, keyLen;
+
+
+printf("Enter the plaintext: ");
+fgets(text, sizeof(text), stdin);
+
+printf("Enter the keyword: ");
+fgets(key, sizeof(key), stdin);
+
+textLen = strlen(text);
+keyLen = strlen(key);
+
+if (textLen > 0 && text[textLen - 1] == '\n')
+    text[--textLen] = '\0';
+
+if (keyLen > 0 && key[keyLen - 1] == '\n')
+    key[--keyLen] = '\0';
+
+if (keyLen == 0)
+{
+    printf("Invalid keyword!\n");
+    return 1;
+}
+
+printf("Encrypted Text: ");
+
+for (i = 0; i < textLen; i++)
+{
+    if (isalpha((unsigned char)text[i]))
+    {
+        char ch = toupper((unsigned char)text[i]);
+        char k = toupper((unsigned char)key[j % keyLen]);
+
+        if (!isalpha((unsigned char)k))
+        {
+            printf("\nKeyword must contain only letters.\n");
+            return 1;
+        }
+
+        printf("%c", ((ch - 'A' + k - 'A') % 26) + 'A');
+        j++;
+    }
+    else
+    {
+        printf("%c", text[i]);
+    }
+}
+
+printf("\n");
+
+return 0;
+
+
+}
+
+```
 
 ## OUTPUT
+<img width="325" height="128" alt="image" src="https://github.com/user-attachments/assets/3d3a5ee2-915e-4564-bcb5-988169a2530c" />
 
 ## RESULT
+Thus the above program is executed and the output is verified.
